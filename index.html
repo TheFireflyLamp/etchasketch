@@ -6,15 +6,24 @@
 </head>
 <body>
   
+   <div id="modeArea" class="modeArea">
+     <p> First, Please Select Your Drawing Mode: </p>
+    <input type="button" class="mode" value="Drag" onclick="activateDrag()" />
+    <input type="button" class="mode" value="Hover" onclick="activateHover()" />
+  </div>
+  
+  
   <div id="gridArea" class="gridArea">
   </div>
   
   <div id="buttonArea" class="buttonArea">
-  <input type="button" value="Resize Grid" onclick="changeGrid()" />
-  <input type="button" value="Clear" onclick="clearGrid()" />
+    <input type="button" class="option" value="Resize Grid" onclick="changeGrid()" />
+    <input type="button" class="option" value="Clear" onclick="clearGrid()" />
+    <input type="button" class="option" value="Rainbow Pen" onclick="colourize()" />
+    <input type="button" class="option" value="Black Pen" onclick="black()" />
   </div>
   
-  
+ 
   <script src="etch.js" type="text/javascript">
   </script>
  

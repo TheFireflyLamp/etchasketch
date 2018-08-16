@@ -13,3 +13,80 @@
   border-width: 0.05px;
   border-color: black;
 }
+
+.gridArea:hover {
+  cursor: pointer;
+}
+
+.modeArea {
+  font-size: 1em;
+  justify-content: space-evenly;
+  display: flex;
+  margin-left: auto;
+  padding: 10px;
+  margin-right: auto;
+  position: relative;
+  top: -10px;
+  text-align: center;
+  align-content: center;
+  background-color: white;
+  width: 600px;
+  height: 50px;
+}
+
+.modeArea:focus {
+  outline: none;
+}
+
+.mode {
+  position: relative;
+  top: 0px;
+  flex-basis: 100px;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  border-radius: 5px;
+  font-size: 0.7em;
+}
+
+.mode:focus {
+  outline-color: hotpink;
+}
+
+.mode:hover{
+  transform: scale(1.1);
+  outline-color: hotpink;
+}
+
+.buttonArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100px;
+  height: 500px;
+  position: absolute;
+  top: 100px;
+  left: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.option{
+  flex-basis: 50px;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 2px;
+  border-radius: 5px;
+}
+
+.option:hover{
+  transform: scale(1.1);
+  outline-color: hotpink;
+}
+
+.option:focus {
+  outline:none;
+}

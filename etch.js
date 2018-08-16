@@ -1,14 +1,17 @@
 const gridArea = document.querySelector('#gridArea');
-let userInput = 10;
+let userInput = 30;
 let userSquared = userInput*userInput;
 let basisValue = 600/userInput;
 let refBasisValue = basisValue + "px";
 console.log (refBasisValue);
 console.log (userInput);
 console.log (userSquared);
+let currentColour = 'black' ;
+let selectedMode = "hover";
 
-createGrid (userInput);
-document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+createGrid (userInput);  
+
+
 
 function updateValues(){
   userSquared = userInput*userInput;
@@ -33,7 +36,7 @@ function changeGrid() {
   updateValues();
   console.log(userInput);
   createGrid(userInput);
-  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+  
 }
 
 function clearGrid() {
@@ -46,9 +49,51 @@ function clearGrid() {
   console.log(typeof (grid));
 }
 
-
 function changeCell(e) {
   let currentCell = e.target;
-  currentCell.style.backgroundColor= 'black';
+  currentCell.style.backgroundColor= currentColour;
+}
+
+let interval;
+
+function colourize() {
+  interval = setInterval(function(){ currentColour = pastelColors(); }, 50);
+}
+
+function black() {
+  clearInterval(interval);
+  currentColour = 'black';
+}
+
+function pastelColors(){
+  var r = (Math.round(Math.random()* 127) + 127).toString(16);
+  var g = (Math.round(Math.random()* 127) + 127).toString(16);
+  var b = (Math.round(Math.random()* 127) + 127).toString(16);
+  return '#' + r + g + b;
+}
+
+var mouseDown = 0;
+document.body.onmousedown = function() { 
+  ++mouseDown;
+}
+document.body.onmouseup = function() {
+  mouseDown = 0;
+}
+
+function activateDrag() {
+  selectedMode= "drag";
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
+  document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+}
+
+function dragCell(e) {
+  if(mouseDown){
+  changeCell(e);
+}
+}
+
+function activateHover() {
+  selectedMode= "hover";
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
 }
 
