@@ -8,6 +8,7 @@ console.log (userInput);
 console.log (userSquared);
 
 createGrid (userInput);
+document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
 
 function updateValues(){
   userSquared = userInput*userInput;
@@ -32,6 +33,7 @@ function changeGrid() {
   updateValues();
   console.log(userInput);
   createGrid(userInput);
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
 }
 
 function clearGrid() {
@@ -40,6 +42,13 @@ function clearGrid() {
     if (nodes[i].nodeName.toLowerCase() == 'div') {
          nodes[i].style.backgroundColor = 'white';
      }
-}
+  }
   console.log(typeof (grid));
 }
+
+
+function changeCell(e) {
+  let currentCell = e.target;
+  currentCell.style.backgroundColor= 'black';
+}
+
