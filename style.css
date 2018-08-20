@@ -65,12 +65,9 @@
   justify-content: space-evenly;
   width: 100px;
   height: 500px;
-  position: absolute;
-  top: 100px;
-  left: 150px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
+  position: relative;
+  top: -600px;
+  margin-left: 80px;
 }
 
 .option{
