@@ -66,7 +66,8 @@ function colourize() {
   }
   else if (selectedMode == "drag"){
     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
-    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseclick = changeCell);
   }
 }
 
@@ -80,7 +81,8 @@ function black() {
   }
   else if (selectedMode == "drag"){
     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
-    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseclick = changeCell);
   }
   
 }
@@ -105,10 +107,12 @@ function activateDrag() {
   if (mode != "translucent") {
     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
     document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseclick = changeCell);
   }
   if (mode == "translucent") {
     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragTransCell);
-    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragTransCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = translucentCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseclick = translucentCell);
   }
 }
 
@@ -135,7 +139,8 @@ function activateTranslucent(){
   }
   else if (selectedMode == "drag"){
     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragTransCell);
-    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragTransCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = translucentCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseclick = translucentCell);
   }
 }
 
@@ -152,9 +157,6 @@ function translucentCell(e){
   console.log(e.target);
   let currentRGB = ((window.getComputedStyle(cellToShade, null).getPropertyValue("background-color")).slice(4, -11));
   console.log(currentRGB);
-  if (currentRGB < 100) {
-     currentRGB = ((window.getComputedStyle(cellToShade, null).getPropertyValue("background-color")).slice(4, -9));
-    }
   let newRGB = currentRGB - 25.5;
   console.log(newRGB);
   let shade = `rgb(${newRGB}, ${newRGB}, ${newRGB})`;
