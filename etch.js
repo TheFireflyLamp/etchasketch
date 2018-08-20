@@ -7,7 +7,8 @@ console.log (refBasisValue);
 console.log (userInput);
 console.log (userSquared);
 let currentColour = 'black' ;
-let selectedMode = "hover";
+let selectedMode = "drag";
+let mode = "ink";
 
 createGrid (userInput);  
 
@@ -24,6 +25,7 @@ function createGrid (userInput) {
     const grid = document.createElement('div');
     grid.classList.add("gridCell");
     grid.style.width= refBasisValue;
+    grid.style.backgroundColor= "rgb(255,255,255)";
     gridArea.appendChild(grid);
   }
 }
@@ -57,12 +59,30 @@ function changeCell(e) {
 let interval;
 
 function colourize() {
+  mode = "colour";
   interval = setInterval(function(){ currentColour = pastelColors(); }, 50);
+  if (selectedMode == "hover") {
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+  }
+  else if (selectedMode == "drag"){
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragCell);
+  }
 }
 
+
 function black() {
+  mode = "ink";
   clearInterval(interval);
-  currentColour = 'black';
+  currentColour = "rgb(0,0,0)";
+  if (selectedMode == "hover") {
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+  }
+  else if (selectedMode == "drag"){
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragCell);
+  }
+  
 }
 
 function pastelColors(){
@@ -82,8 +102,14 @@ document.body.onmouseup = function() {
 
 function activateDrag() {
   selectedMode= "drag";
-  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
-  document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+  if (mode != "translucent") {
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = changeCell);
+  }
+  if (mode == "translucent") {
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragTransCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragTransCell);
+  }
 }
 
 function dragCell(e) {
@@ -94,6 +120,46 @@ function dragCell(e) {
 
 function activateHover() {
   selectedMode= "hover";
-  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+  if (mode != "translucent") {
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = changeCell);
+  }
+  if (mode == "translucent") {
+     document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = translucentCell)
+  }
+}
+
+function activateTranslucent(){
+  if (selectedMode == "hover") {
+  document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = translucentCell);
+  }
+  else if (selectedMode == "drag"){
+    document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = dragTransCell);
+    document.querySelectorAll('.gridCell').forEach(node => node.onmousedown = dragTransCell);
+  }
+}
+
+function dragTransCell(e) {
+  if(mouseDown){
+  translucentCell(e);
+}
+}
+
+function translucentCell(e){
+  mode = "translucent";
+  clearInterval(interval);
+  let cellToShade = e.target;
+  console.log(e.target);
+  let currentRGB = ((window.getComputedStyle(cellToShade, null).getPropertyValue("background-color")).slice(4, -11));
+  console.log(currentRGB);
+  if (currentRGB < 100) {
+     currentRGB = ((window.getComputedStyle(cellToShade, null).getPropertyValue("background-color")).slice(4, -9));
+    }
+  let newRGB = currentRGB - 25.5;
+  console.log(newRGB);
+  let shade = `rgb(${newRGB}, ${newRGB}, ${newRGB})`;
+  console.log(shade);
+  currentColour = shade;
+  cellToShade.style.backgroundColor= currentColour;
+  
 }
 
