@@ -129,6 +129,7 @@ function activateHover() {
 }
 
 function activateTranslucent(){
+  mode = "translucent";
   if (selectedMode == "hover") {
   document.querySelectorAll('.gridCell').forEach(node => node.onmouseover = translucentCell);
   }
